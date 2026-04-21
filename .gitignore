@@ -1,0 +1,14 @@
+# 系統檔
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 暫存 / 快取
+*.tmp
+*.log
+__pycache__/
+*.pyc
+.env
+
+# 個人日誌（不推上公開倉庫）
+300_Journal/
