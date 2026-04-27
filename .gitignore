@@ -8,7 +8,14 @@ desktop.ini
 *.log
 __pycache__/
 *.pyc
+
+# 含 API Key / Token 的檔案（不推上 GitHub）
 .env
+.env.*
+settings.local.json
+**/settings.local.json
+*.token
+*token*.json
 
 # 個人日誌（不推上公開倉庫）
 300_Journal/
