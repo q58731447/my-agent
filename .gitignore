@@ -16,6 +16,10 @@ settings.local.json
 **/settings.local.json
 *.token
 *token*.json
+sync/mcp-servers.json
+
+# Claude 本地設定（含 token）
+.claude/
 
 # 個人日誌（不推上公開倉庫）
 300_Journal/

@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(rm -r *)",
+      "Bash(rm -R *)",
+      "Bash(rm -f *)",
+      "Bash(sudo *)",
+      "Bash(dd *)",
+      "Bash(mkfs*)",
+      "Bash(diskutil erase*)",
+      "Bash(chmod 777 *)",
+      "Bash(chmod -R 777 *)",
+      "Bash(git reset --hard*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(git clean -f*)",
+      "Bash(git branch -D*)",
+      "Bash(shutdown*)",
+      "Bash(reboot*)",
+      "Bash(: >*)",
+      "Bash(truncate *)"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$USERPROFILE/.claude/statusline-command.sh\""
+  },
+  "extraKnownMarketplaces": {
+    "ak-threads-booster-marketplace": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/akseolabs-seo/AK-Threads-booster.git"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "enabledPlugins": {
+    "ak-threads-booster@ak-threads-booster-marketplace": true
+  }
+}
