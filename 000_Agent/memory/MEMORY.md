@@ -1,73 +1,8 @@
-<!-- AI 分身起始助手紀錄:START -->
-<!-- AI 分身起始助手 by 雷小蒙 v1.1 · 2026-04-21 · by 雷蒙（Raymond Hou）· https://cc.lifehacker.tw · CC BY-NC-SA 4.0 -->
+# Memory Index
 
-# Jeff Chen 的 AI 分身記憶
-
-> 這裡存我跟 AI 之間跨 session 的偏好、經驗、踩坑紀錄。
-> AI 每次 session 開始會自動讀這個檔案。
-
----
-
-## 用戶偏好
-
-- 輸出一律繁體中文，結構化格式（標題、清單、表格）
-- 偏好長期系統設計，非一次性建議
-- 內容框架：情境 → 原則 → 微行動（三段式）
-
----
-
-## Feedback（AI 學到的原則）
-
-### 學習紀錄處理流程（2026.04.27 更新）
-
-當使用者提供學習紀錄時，標準流程：
-
-1. **存入 Heptabase**：Note Card + 對應日期 Journal（直接用 MCP，不走 knowledge-card skill）
-2. **草擬 Threads 貼文**：依格式整理後展示給使用者確認
-3. **詢問確認**：「是否可以 PO 到 Threads？」
-4. **等使用者同意後才發文**，絕不自動 PO
-
-### Threads 學習紀錄貼文格式
-
-```
-學習紀錄 | YYYY.MM.DD Day XX
-
-🎯 今天目標：
-• 任務一 ✅/❌
-• 任務二 ✅/❌
-
-🛠 實作結果：
-[濃縮一到兩句]
-
-重點整理：
-• 重點一
-• 重點二
-• 重點三
-
-#DayXX #標籤
-```
-
-規則：
-- 開頭完整保留原始標題與目標區塊（含 emoji、✅❌符號）
-- 實作結果濃縮 + 條列式重點摘要
-- 結尾加 hashtag
-
----
-
-## 踩坑筆記
-
-- Threads 發文前務必先詢問確認，不可自動發出
-
----
-
-## 環境速查表
-
-| 項目             | 值                                                  |
-| :--------------- | :-------------------------------------------------- |
-| AI 分身母資料夾  | `~/Documents/my-agent/`                             |
-| 建立日期         | `2026-04-21`                                        |
-| Skills symlink   | ✅ `~/.claude/skills` → `000_Agent/skills/`         |
-| 記憶系統啟用     | ✅                                                  |
-| 日記功能         | ✅ 300_Journal/ 已建立                              |
-
-<!-- AI 分身起始助手紀錄:END -->
+- [Heptabase MCP 設定進度](project_heptabase_mcp.md) — MCP 已確認連線成功，Day 30 卡片已存入主空間
+- [知識卡片 Day 30 內容](project_day30_card.md) — 學習紀錄 | 2026.04.21 Day 30 已成功存入 Heptabase（2026.04.22）
+- [Cloudflare MCP 設定進度](project_cloudflare_mcp.md) — OAuth 授權完成，帳號已連線，帳號 ID 已確認，尚無 Worker 部署
+- [日誌存入 Heptabase 方式](feedback_journal_heptabase.md) — 學習日誌直接存 Heptabase，不走 knowledge-card skill
+- [Threads 學習紀錄貼文規範](feedback_threads_format.md) — 存完 Heptabase 後草擬貼文，詢問確認後才 PO
+- [GitHub 同步排除規則](feedback_gitignore.md) — 含 API Key 的檔案一律不推 GitHub，加入 .gitignore
