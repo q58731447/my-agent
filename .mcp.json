@@ -1,6 +1,0 @@
-{
-  "heptabase-mcp": {
-    "type": "http",
-    "url": "https://api.heptabase.com/mcp"
-  }
-}

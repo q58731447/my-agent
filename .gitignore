@@ -17,6 +17,7 @@ settings.local.json
 *.token
 *token*.json
 sync/mcp-servers.json
+.mcp.json
 
 # Claude 本地設定（含 token）
 .claude/
