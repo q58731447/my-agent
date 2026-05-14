@@ -73,3 +73,17 @@ description: 每日學習日誌存入 SOP — 收到格式為「學習紀錄 | Y
 - 語氣：個人成長 + 系統思維，親切不說教
 - 不加 hashtag
 - 結尾可加一句反思或行動呼籲
+
+---
+
+## 步驟四：確認並發佈 Threads
+
+草擬完成後，輸出貼文內容，並詢問：
+
+```
+以上是 Threads 貼文草稿，可以發佈嗎？
+```
+
+使用者確認後，呼叫 `mcp__meta__threads_publish_text` 發佈到 **@thisisj587**。
+
+發佈完成後告知：「✅ Threads 貼文已發佈至 @thisisj587！」
