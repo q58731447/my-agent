@@ -135,11 +135,11 @@ description: 每日健康紀錄存入 Heptabase SOP — 收到含有體重、入
 
 ```
 請問這篇健康日誌要發佈到哪個 Threads 帳號？
-① @a58731447（個人帳號）
+① @a58731447（個人帳號，預設）
 ② 其他帳號（請說明）
 ```
 
-根據使用者選擇，對應呼叫對應 MCP（個人帳號使用 meta-personal）。
+根據使用者選擇，對應呼叫對應 MCP（預設帳號使用 meta-personal）。
 
 ---
 
@@ -193,7 +193,14 @@ description: 每日健康紀錄存入 Heptabase SOP — 收到含有體重、入
 
 ### 發佈貼文
 
-使用者確認後，呼叫 `threads_publish_text`（MCP：meta-personal）發佈貼文。
+使用者確認後，依選擇的帳號呼叫對應 MCP：
+
+| 帳號 | MCP | 工具前綴 |
+|------|-----|---------|
+| @a58731447（個人，預設） | `meta-personal`（自架） | `mcp__meta-personal__` |
+| @thisisj587 | `meta`（雲端插件） | `mcp__meta__` |
+
+> ⚠️ @a58731447 的 Token 目前已過期，需重新授權後才能使用。
 
 發佈完成後告知：
 
