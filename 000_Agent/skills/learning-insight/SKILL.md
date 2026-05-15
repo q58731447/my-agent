@@ -158,3 +158,151 @@ description: 學習心得內容編輯 SOP — 收到使用者的學習心得文�
 
 存入後告知使用者：「✅ 已存入 Heptabase：[卡片標題]」
 
+---
+
+## 步驟五：產出 HTML 視覺報告
+
+根據步驟二的四個任務輸出，用 Write 工具存檔至：
+
+```
+C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\learning-insight-YYYYMMDD.html
+```
+
+（YYYYMMDD 替換為當日日期）
+
+### HTML 模板
+
+將所有 `{{變數}}` 替換為實際資料後存檔：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: "Noto Sans TC", sans-serif;
+    background: #0f0f0f;
+    color: #e0e0e0;
+    padding: 24px;
+    max-width: 680px;
+    margin: auto;
+  }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 1.2rem; color: #f5c842; margin: 0; }
+  .header p { color: #888; font-size: 0.8rem; margin: 6px 0 0; }
+  .card { background: #1a1a1a; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
+  .card-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+
+  /* 金句 */
+  .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .quote-item {
+    background: #1f1f00;
+    border: 1px solid #3a3a00;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #f5e680;
+  }
+  .quote-num { font-size: 0.65rem; color: #888; margin-bottom: 4px; }
+
+  /* 關鍵字 */
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    color: #ccc;
+  }
+
+  /* 轉單文案 */
+  .copy-item { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid #2a2a2a; font-size: 0.82rem; }
+  .copy-item:last-child { border-bottom: none; }
+  .copy-label { flex-shrink: 0; color: #f5c842; font-size: 0.72rem; width: 90px; padding-top: 2px; }
+  .copy-text { flex: 1; line-height: 1.5; color: #ccc; }
+
+  /* Threads 預覽 */
+  .threads-preview {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    color: #ddd;
+  }
+  .threads-avatar {
+    width: 32px; height: 32px;
+    background: #f5c842;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .threads-name { font-size: 0.78rem; color: #aaa; margin-left: 8px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>💡 學習心得洞察卡</h1>
+  <p>{{來源}} ／ {{作者}}｜{{YYYY-MM-DD}}</p>
+</div>
+
+<div class="card">
+  <div class="card-title">金句 10 則</div>
+  <div class="quote-grid">
+    {{金句列表HTML}}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">關鍵字</div>
+  <div class="tag-wrap">
+    {{關鍵字列表HTML}}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">轉單文案 10 句</div>
+  {{轉單文案列表HTML}}
+</div>
+
+<div class="card">
+  <div class="card-title">Threads 貼文預覽</div>
+  <div><span class="threads-avatar">J</span><span class="threads-name">@thisisj587</span></div>
+  <div class="threads-preview">{{Threads貼文內容}}</div>
+</div>
+
+</body>
+</html>
+```
+
+### 變數說明
+
+| 變數 | 填入規則 |
+|------|---------|
+| `{{來源}}` | 步驟三填寫的來源名稱 |
+| `{{作者}}` | 步驟三填寫的作者 |
+| `{{YYYY-MM-DD}}` | 當日日期 |
+| `{{金句列表HTML}}` | 每則金句產出：`<div class="quote-item"><div class="quote-num">01</div>金句內容</div>`，共 10 則 |
+| `{{關鍵字列表HTML}}` | 每個關鍵字產出：`<span class="tag">關鍵字</span>` |
+| `{{轉單文案列表HTML}}` | 每句產出：`<div class="copy-item"><span class="copy-label">【密碼名稱】</span><span class="copy-text">文案內容</span></div>` |
+| `{{Threads貼文內容}}` | 任務四的貼文全文，換行保留 |
+
+存檔完成後告知使用者：
+
+```
+📄 HTML 報告已產出：learning-insight-YYYYMMDD.html
+路徑：C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\
+用瀏覽器開啟後，按 F12 → Ctrl+Shift+P → 輸入 screenshot → 選「Capture full size screenshot」即可存成圖片。
+```
+
