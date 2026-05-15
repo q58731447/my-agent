@@ -127,7 +127,162 @@ description: 每日健康紀錄存入 Heptabase SOP — 收到含有體重、入
 
 ---
 
-## 步驟五：草擬 Threads 貼文並詢問是否發佈
+## 步驟五：產出 HTML 視覺報告
+
+根據步驟一、二的資料，產出以下 HTML 內容，並用 Write 工具存檔至：
+
+```
+C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\health-record-YYYYMMDD.html
+```
+
+（YYYYMMDD 替換為當日日期）
+
+### HTML 模板
+
+將以下模板中的所有 `{{變數}}` 替換為實際資料後存檔：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: "Noto Sans TC", sans-serif;
+    background: #0f0f0f;
+    color: #e0e0e0;
+    padding: 24px;
+    max-width: 640px;
+    margin: auto;
+  }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 1.4rem; color: #f5c842; margin: 0; }
+  .header p  { color: #888; font-size: 0.85rem; margin: 4px 0 0; }
+  .card { background: #1a1a1a; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
+  .card-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .metrics { display: flex; gap: 12px; }
+  .metric { flex: 1; background: #242424; border-radius: 10px; padding: 12px; text-align: center; }
+  .metric .val { font-size: 1.6rem; font-weight: bold; color: #f5c842; }
+  .metric .lbl { font-size: 0.72rem; color: #888; margin-top: 4px; }
+  .score-row { display: flex; align-items: center; gap: 20px; }
+  .circle-wrap { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+  .circle-wrap svg { transform: rotate(-90deg); }
+  .circle-wrap .pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: bold; color: #4cde80; }
+  .score-detail { flex: 1; }
+  .score-detail .item { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 4px 0; border-bottom: 1px solid #2a2a2a; }
+  .score-detail .item:last-child { border-bottom: none; }
+  .ok  { color: #4cde80; }
+  .fail{ color: #ff5f5f; }
+  .meal-row { display: flex; gap: 10px; }
+  .meal { flex: 1; background: #242424; border-radius: 10px; padding: 10px 12px; }
+  .meal .m-label { font-size: 0.7rem; color: #888; margin-bottom: 6px; }
+  .meal .m-content { font-size: 0.82rem; line-height: 1.5; }
+  .bar-wrap { margin-top: 16px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px; }
+  .bar-track { background: #2a2a2a; border-radius: 99px; height: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #f5c842, #4cde80); }
+  .quote { border-left: 3px solid #f5c842; padding-left: 14px; font-size: 0.85rem; line-height: 1.8; color: #ccc; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚔️ 瘦身修煉日誌</h1>
+  <p>{{YYYY-MM-DD}}</p>
+</div>
+
+<div class="card">
+  <div class="card-title">今日數據</div>
+  <div class="metrics">
+    <div class="metric"><div class="val">{{今日體重}}</div><div class="lbl">體重 kg</div></div>
+    <div class="metric"><div class="val">{{體重變化}}</div><div class="lbl">昨日差值</div></div>
+    <div class="metric"><div class="val">{{入睡時間}}</div><div class="lbl">入睡時間</div></div>
+    <div class="metric"><div class="val">{{超慢跑時間}}m</div><div class="lbl">超慢跑</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">今日達成率</div>
+  <div class="score-row">
+    <div class="circle-wrap">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#2a2a2a" stroke-width="8"/>
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#4cde80" stroke-width="8"
+          stroke-dasharray="238.76" stroke-dashoffset="{{圓圈offset}}"
+          stroke-linecap="round"/>
+      </svg>
+      <div class="pct">{{達成數}}/9</div>
+    </div>
+    <div class="score-detail">
+      <div class="item"><span>子時歸息</span><span class="{{子時歸息class}}">{{子時歸息符號}}</span></div>
+      <div class="item"><span>亥末調息</span><span class="{{亥末調息class}}">{{亥末調息符號}}</span></div>
+      <div class="item"><span>月落養神</span><span class="{{月落養神class}}">{{月落養神符號}}</span></div>
+      <div class="item"><span>輕功步訣</span><span class="{{輕功步訣class}}">{{輕功步訣符號}}</span></div>
+      <div class="item"><span>晨膳守量</span><span class="{{晨膳守量class}}">{{晨膳守量符號}}</span></div>
+      <div class="item"><span>午膳守量</span><span class="{{午膳守量class}}">{{午膳守量符號}}</span></div>
+      <div class="item"><span>暮膳守量</span><span class="{{暮膳守量class}}">{{暮膳守量符號}}</span></div>
+      <div class="item"><span>戒口清心</span><span class="{{戒口清心class}}">{{戒口清心符號}}</span></div>
+      <div class="item"><span>收功存錄</span><span class="ok">✅</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">三餐紀錄</div>
+  <div class="meal-row">
+    <div class="meal"><div class="m-label">早餐</div><div class="m-content">{{早餐內容}}</div></div>
+    <div class="meal"><div class="m-label">午餐</div><div class="m-content">{{午餐內容}}</div></div>
+    <div class="meal"><div class="m-label">晚餐</div><div class="m-content">{{晚餐內容}}</div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-label"><span>點心</span><span>{{點心內容}}</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">今日武俠心得</div>
+  <div class="quote">{{武俠心得}}</div>
+</div>
+
+</body>
+</html>
+```
+
+### 變數說明
+
+| 變數 | 填入規則 |
+|------|---------|
+| `{{YYYY-MM-DD}}` | 日期格式，如 `2026-05-15` |
+| `{{今日體重}}` | 數字，如 `83.2` |
+| `{{體重變化}}` | 含符號，如 `-0.3` 或 `+0.2` |
+| `{{入睡時間}}` | 如 `23:30` |
+| `{{超慢跑時間}}` | 分鐘數字，如 `30`；無則填 `0` |
+| `{{圓圈offset}}` | 公式：`238.76 × (1 − 達成數/9)`，四捨五入至小數第一位 |
+| `{{達成數}}` | 達成目標數，如 `7` |
+| 各目標 `class` | 達成填 `ok`，未達成填 `fail` |
+| 各目標 `符號` | 達成填 `✅`，未達成填 `❌` |
+| `{{早/午/晚餐內容}}` | 換行用 `<br>` 分隔 |
+| `{{點心內容}}` | 無點心填 `無（視為達成）` |
+| `{{武俠心得}}` | 根據當日資料自動生成 2–3 句武俠風格心得，換行用 `<br>` |
+
+### 武俠心得生成規則
+
+- 以修煉、功法、魔障等武俠意象描述當日狀況
+- 提及體重變化、達成亮點、以及 ❌ 未達成項目
+- 結尾給一句明日行動方針
+- 語氣簡練，約 2–3 句
+
+存檔完成後告知使用者：
+
+```
+📄 HTML 報告已產出：health-record-YYYYMMDD.html
+路徑：C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\
+用瀏覽器開啟後，按 F12 → Ctrl+Shift+P → 輸入 screenshot → 選「Capture full size screenshot」即可存成圖片。
+```
+
+---
+
+## 步驟六：草擬 Threads 貼文並詢問是否發佈
 
 ### 詢問發佈帳號
 
