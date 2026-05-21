@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>卡內基人際關係 14 天打卡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================================
+   卡內基人際關係 14 天打卡 — Claymorphism Design Tokens
+   ========================================================= */
+
+:root {
+  --warm-white:    #FFF7EC;
+  --cream-yellow:  #FFE7A8;
+  --peach:         #FFD2B0;
+  --coral:         #FF8E72;
+  --coral-deep:    #E66A4E;
+  --mint:          #C8EFD8;
+  --sky:           #C9E4F8;
+  --lavender:      #E1D7F5;
+  --ink:           #4A3B33;
+  --ink-soft:      #7A6A60;
+  --ink-mute:      #B5A89F;
+
+  --clay-shadow:
+    10px 14px 28px rgba(196, 132, 92, 0.25),
+    -6px -8px 18px rgba(255, 255, 255, 0.85),
+    inset 2px 3px 6px rgba(255, 255, 255, 0.95),
+    inset -3px -4px 10px rgba(196, 132, 92, 0.18);
+
+  --clay-shadow-sm:
+    6px 8px 16px rgba(196, 132, 92, 0.22),
+    -3px -4px 10px rgba(255, 255, 255, 0.85),
+    inset 1px 2px 4px rgba(255, 255, 255, 0.95),
+    inset -2px -3px 6px rgba(196, 132, 92, 0.18);
+
+  --clay-pressed:
+    inset 5px 7px 14px rgba(196, 132, 92, 0.32),
+    inset -3px -4px 10px rgba(255, 255, 255, 0.7);
+
+  --clay-inset:
+    inset 4px 6px 14px rgba(196, 132, 92, 0.22),
+    inset -2px -3px 8px rgba(255, 255, 255, 0.9),
+    1px 1px 0 rgba(255,255,255,0.6);
+
+  --coral-shadow:
+    8px 12px 22px rgba(230, 106, 78, 0.42),
+    -4px -6px 14px rgba(255, 220, 200, 0.7),
+    inset 2px 3px 6px rgba(255, 220, 200, 0.55),
+    inset -3px -4px 10px rgba(180, 60, 40, 0.35);
+
+  --coral-pressed:
+    inset 5px 7px 14px rgba(180, 60, 40, 0.45),
+    inset -3px -4px 10px rgba(255, 220, 200, 0.4);
+
+  --radius-card: 28px;
+  --radius-pill: 999px;
+  --radius-btn:  22px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 80% at 10% 0%,  #FFE3C8 0%, transparent 55%),
+    radial-gradient(110% 70% at 95% 5%,  #FFEDB8 0%, transparent 50%),
+    radial-gradient(120% 80% at 50% 100%, #FFD9D0 0%, transparent 55%),
+    linear-gradient(180deg, #FFF3E1 0%, #FFEAD6 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-shell {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+  position: relative;
+}
+@media (min-width: 720px) {
+  body { padding: 24px 0; }
+  .app-shell {
+    margin: 24px auto;
+    border-radius: 40px;
+    padding: 28px 22px 64px;
+    background:
+      radial-gradient(120% 80% at 10% 0%,  #FFE3C8 0%, transparent 55%),
+      radial-gradient(120% 80% at 50% 100%, #FFD9D0 0%, transparent 55%),
+      linear-gradient(180deg, #FFF3E1 0%, #FFEAD6 100%);
+    box-shadow:
+      30px 40px 80px rgba(196, 132, 92, 0.35),
+      -10px -16px 40px rgba(255, 255, 255, 0.6),
+      inset 3px 4px 10px rgba(255,255,255,0.9),
+      inset -4px -6px 16px rgba(196, 132, 92, 0.15);
+  }
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.badge-challenge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 10px;
+  background: linear-gradient(180deg, #FFE39A 0%, #FFC972 100%);
+  color: #7A4E10;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-pill);
+  box-shadow:
+    4px 6px 12px rgba(196, 132, 92, 0.25),
+    inset 1px 2px 4px rgba(255,255,255,0.85),
+    inset -2px -2px 5px rgba(180, 110, 30, 0.25);
+}
+.badge-challenge .dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFFCE6, #FFB23B 70%);
+  box-shadow: inset -2px -3px 4px rgba(180, 90, 0, 0.4), inset 2px 2px 3px rgba(255,255,255,0.9);
+}
+
+h1.page-title {
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+  margin: 14px 0 6px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Progress
+   ========================================================= */
+.progress-card {
+  background: linear-gradient(180deg, #FFFDF6 0%, #FFF1DC 100%);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  box-shadow: var(--clay-shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.progress-ring {
+  position: relative;
+  width: 72px; height: 72px;
+  flex-shrink: 0;
+}
+.progress-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.progress-ring .ring-bg { stroke: #F2D9BE; }
+.progress-ring .ring-fg {
+  stroke: url(#ringGrad);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s cubic-bezier(.5,1.6,.4,1);
+}
+.progress-ring .num {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--coral-deep);
+}
+.progress-ring .num small { font-size: 11px; color: var(--ink-soft); font-weight: 600; }
+.progress-info { flex: 1; min-width: 0; }
+.progress-label { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.06em; font-weight: 600; }
+.progress-headline { font-size: 18px; font-weight: 800; color: var(--ink); margin-top: 2px; }
+.progress-encourage { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; line-height: 1.45; }
+
+/* =========================================================
+   Section labels
+   ========================================================= */
+.section-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 6px 4px 12px;
+}
+.section-label .lbl { font-size: 14px; font-weight: 800; color: var(--ink); letter-spacing: 0.02em; }
+.section-label .hint { font-size: 12px; color: var(--ink-soft); }
+
+/* =========================================================
+   Principle cards
+   ========================================================= */
+.principles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.principle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border: none;
+  background: var(--p-bg, linear-gradient(180deg, #FFFDF7 0%, #FFF1DC 100%));
+  border-radius: 18px;
+  box-shadow: var(--clay-shadow-sm);
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.principle:active { transform: translateY(1px); }
+.principle.selected {
+  background: var(--p-bg-on, linear-gradient(180deg, #FFD8C2 0%, #FFB893 100%));
+  color: #5A2C18;
+  box-shadow: var(--clay-pressed);
+  transform: translateY(2px);
+}
+.principle .num-chip {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 9px;
+  background: var(--chip-bg, linear-gradient(180deg, #FFE7A8 0%, #FFC972 100%));
+  color: #6E4A0E;
+  font-weight: 800;
+  font-size: 13px;
+  display: grid; place-items: center;
+  box-shadow:
+    2px 3px 6px rgba(196, 132, 92, 0.3),
+    inset 1px 2px 3px rgba(255,255,255,0.8),
+    inset -1px -1px 3px rgba(180, 110, 30, 0.3);
+}
+.principle .text { flex: 1; min-width: 0; }
+.principle .checkbox {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #FFF9EC 0%, #F6E1C6 100%);
+  display: grid; place-items: center;
+  box-shadow: var(--clay-inset);
+  transition: all 0.2s ease;
+}
+.principle.selected .checkbox {
+  background: linear-gradient(180deg, #FF9E80 0%, #E66A4E 100%);
+  box-shadow:
+    2px 3px 6px rgba(180, 60, 40, 0.4),
+    inset 1px 2px 3px rgba(255,210,190,0.5),
+    inset -1px -1px 3px rgba(120, 40, 20, 0.3);
+}
+.principle .checkbox svg { width: 14px; height: 14px; opacity: 0; transition: opacity 0.2s; }
+.principle.selected .checkbox svg { opacity: 1; }
+
+/* Color variants per principle */
+.principle[data-c="1"],
+.result-principle[data-c="1"] { --p-bg: linear-gradient(180deg, #FFF1DC 0%, #FFE0C2 100%); --chip-bg: linear-gradient(180deg, #FFE39A 0%, #FFC972 100%); }
+.principle[data-c="2"],
+.result-principle[data-c="2"] { --p-bg: linear-gradient(180deg, #FFF6E2 0%, #FFE8B5 100%); --chip-bg: linear-gradient(180deg, #FFE093 0%, #FFB94B 100%); }
+.principle[data-c="3"],
+.result-principle[data-c="3"] { --p-bg: linear-gradient(180deg, #FFEFE5 0%, #FFD7BC 100%); --chip-bg: linear-gradient(180deg, #FFC4A0 0%, #FF8E72 100%); }
+.principle[data-c="4"],
+.result-principle[data-c="4"] { --p-bg: linear-gradient(180deg, #EAF7F0 0%, #C9EAD7 100%); --chip-bg: linear-gradient(180deg, #B4E7C5 0%, #6FC890 100%); }
+.principle[data-c="5"],
+.result-principle[data-c="5"] { --p-bg: linear-gradient(180deg, #FFF7E0 0%, #FFE9A8 100%); --chip-bg: linear-gradient(180deg, #FFE093 0%, #FFB94B 100%); }
+.principle[data-c="6"],
+.result-principle[data-c="6"] { --p-bg: linear-gradient(180deg, #E8F2FB 0%, #C9E4F8 100%); --chip-bg: linear-gradient(180deg, #BBDCF6 0%, #6FA8DC 100%); }
+.principle[data-c="7"],
+.result-principle[data-c="7"] { --p-bg: linear-gradient(180deg, #F0EAFB 0%, #E1D7F5 100%); --chip-bg: linear-gradient(180deg, #CFC0EE 0%, #9B85D6 100%); }
+.principle[data-c="8"],
+.result-principle[data-c="8"] { --p-bg: linear-gradient(180deg, #FFEFE5 0%, #FFD0B6 100%); --chip-bg: linear-gradient(180deg, #FFB893 0%, #FF8E72 100%); }
+.principle[data-c="9"],
+.result-principle[data-c="9"] { --p-bg: linear-gradient(180deg, #FFF1DC 0%, #FFDDA8 100%); --chip-bg: linear-gradient(180deg, #FFD27A 0%, #F0A437 100%); }
+
+/* =========================================================
+   Textarea (clay inset)
+   ========================================================= */
+.textarea-wrap {
+  background: linear-gradient(180deg, #F8E4CA 0%, #FFF1DC 100%);
+  border-radius: var(--radius-card);
+  padding: 14px 16px 12px;
+  box-shadow: var(--clay-inset);
+  margin-bottom: 8px;
+}
+.textarea-wrap textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  min-height: 130px;
+  padding: 0;
+}
+.textarea-wrap textarea::placeholder { color: var(--ink-mute); }
+.textarea-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(122, 78, 16, 0.18);
+}
+.textarea-meta .count.over { color: var(--coral-deep); font-weight: 700; }
+
+/* =========================================================
+   Validation / inline alert
+   ========================================================= */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 14px 0 8px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #FFE3D8 0%, #FFC9B7 100%);
+  color: #7A2E18;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  box-shadow:
+    4px 6px 12px rgba(230, 106, 78, 0.25),
+    inset 1px 2px 3px rgba(255,255,255,0.7),
+    inset -1px -1px 3px rgba(180, 60, 40, 0.2);
+  animation: shake 0.4s ease;
+}
+.alert .ico {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #FF9E80 0%, #E66A4E 100%);
+  color: white;
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  box-shadow: inset -1px -1px 2px rgba(120,40,20,0.4), inset 1px 1px 2px rgba(255,220,200,0.5);
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) { .alert { animation: none; } }
+
+/* =========================================================
+   Coral submit button
+   ========================================================= */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(180deg, #FFA88A 0%, #FF7B5A 60%, #E66A4E 100%);
+  color: white;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: var(--coral-shadow);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s;
+}
+.btn-submit:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: var(--coral-pressed);
+}
+.btn-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: saturate(0.7);
+}
+.btn-submit .arrow {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: grid; place-items: center;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4);
+}
+
+/* =========================================================
+   Clear zone
+   ========================================================= */
+.clear-zone { margin-top: 28px; text-align: center; }
+.clear-link {
+  background: none;
+  border: none;
+  color: var(--ink-mute);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+
+.confirm-card {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #FFEEE0 0%, #FFD8C2 100%);
+  box-shadow: var(--clay-shadow-sm);
+  text-align: left;
+}
+.confirm-card p {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  color: #7A2E18;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.confirm-actions button {
+  border: none;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 12px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.confirm-actions .cancel {
+  background: linear-gradient(180deg, #FFF6E5 0%, #FFE7C7 100%);
+  color: var(--ink-soft);
+  box-shadow: var(--clay-shadow-sm);
+}
+.confirm-actions .ok {
+  background: linear-gradient(180deg, #FF8A6B 0%, #E04E32 100%);
+  color: white;
+  box-shadow: var(--coral-shadow);
+}
+.confirm-actions button:active { transform: translateY(2px); }
+
+/* =========================================================
+   Sync card (manual day-count recovery)
+   ========================================================= */
+.sync-entry { margin: -10px 0 18px; text-align: center; }
+.sync-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(180deg, #FFF6E5 0%, #FFE7C7 100%);
+  border: none;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding: 8px 14px 8px 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  box-shadow:
+    3px 4px 8px rgba(196, 132, 92, 0.18),
+    -2px -2px 6px rgba(255,255,255,0.7),
+    inset 1px 1px 2px rgba(255,255,255,0.7),
+    inset -1px -1px 2px rgba(196, 132, 92, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sync-link:active { transform: translateY(2px); box-shadow: var(--clay-pressed); }
+.sync-link .sync-ico {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #B3A0E0 0%, #8870C8 100%);
+  color: white;
+  display: grid; place-items: center;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4), inset -1px -1px 2px rgba(60,40,100,0.3);
+}
+
+.sync-card {
+  margin: -8px 0 22px;
+  padding: 18px;
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #F0EAFB 0%, #E1D7F5 100%);
+  box-shadow: var(--clay-shadow);
+}
+.sync-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sync-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: linear-gradient(180deg, #B3A0E0 0%, #8870C8 100%);
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-pill);
+  box-shadow:
+    2px 3px 6px rgba(100, 70, 160, 0.35),
+    inset 1px 1px 2px rgba(255,255,255,0.35),
+    inset -1px -1px 2px rgba(60,40,100,0.3);
+}
+.sync-close {
+  width: 28px; height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #FFFDF6 0%, #ECDEF7 100%);
+  color: #6F5BA0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  display: grid; place-items: center;
+  cursor: pointer;
+  box-shadow: var(--clay-shadow-sm);
+}
+.sync-close:active { transform: translateY(1px); box-shadow: var(--clay-pressed); }
+
+.sync-desc { font-size: 13px; line-height: 1.6; color: #3D2C68; margin: 0 0 14px; font-weight: 500; }
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(180deg, #DCD0F0 0%, #EFE6FB 100%);
+  border-radius: 22px;
+  padding: 10px;
+  box-shadow: var(--clay-inset);
+  margin-bottom: 14px;
+}
+.step-btn {
+  width: 52px; height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #FFFDF6 0%, #EADBF8 100%);
+  color: #5A3D9F;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  font-family: inherit;
+  display: grid; place-items: center;
+  cursor: pointer;
+  box-shadow:
+    4px 5px 10px rgba(100, 70, 160, 0.25),
+    -2px -2px 6px rgba(255,255,255,0.85),
+    inset 1px 2px 3px rgba(255,255,255,0.9),
+    inset -1px -1px 3px rgba(100,70,160,0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.step-btn:active:not(:disabled) { transform: translateY(2px); box-shadow: var(--clay-pressed); }
+.step-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.step-display {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.step-num { font-size: 38px; font-weight: 800; line-height: 1; color: #3D2C68; font-variant-numeric: tabular-nums; }
+.step-unit { font-size: 12px; font-weight: 700; color: #6F5BA0; margin-top: 4px; letter-spacing: 0.04em; }
+.sync-note { font-size: 11.5px; line-height: 1.55; color: #6F5BA0; margin: 0 0 14px; text-align: center; font-weight: 500; }
+
+.sync-card .confirm-actions .ok {
+  background: linear-gradient(180deg, #A98EE0 0%, #7A5FCC 100%);
+  box-shadow:
+    6px 8px 16px rgba(100, 70, 160, 0.4),
+    inset 2px 2px 4px rgba(255,220,255,0.4),
+    inset -2px -2px 5px rgba(60,40,100,0.4);
+}
+
+/* =========================================================
+   localStorage warning
+   ========================================================= */
+.warning-card {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #FFF1C8 0%, #FFE2A0 100%);
+  color: #7A5210;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  box-shadow: var(--clay-shadow-sm);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.warning-card .ico {
+  width: 22px; height: 22px;
+  background: #FFB94B;
+  color: white;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: inset -1px -1px 2px rgba(120,80,10,0.4), inset 1px 1px 2px rgba(255,240,200,0.6);
+}
+
+/* =========================================================
+   RESULT PAGE
+   ========================================================= */
+.result-shell { position: relative; overflow: hidden; }
+
+.result-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px; height: 380px;
+  background:
+    radial-gradient(circle, rgba(255, 220, 140, 0.55) 0%, rgba(255, 200, 130, 0.25) 35%, transparent 65%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  animation: glow-pulse 3.5s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  50%       { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .result-glow { animation: none; } }
+
+.result-hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 8px 4px 4px;
+}
+
+.star-3d {
+  position: relative;
+  width: 156px; height: 156px;
+  margin: 4px auto 14px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-10px) rotate(3deg); }
+}
+@media (prefers-reduced-motion: reduce) { .star-3d { animation: none; } }
+
+.star-3d .badge-pop {
+  position: absolute;
+  bottom: -2px; right: -8px;
+  width: 60px; height: 60px;
+  background: linear-gradient(180deg, #FFA88A 0%, #FF7B5A 50%, #E66A4E 100%);
+  color: white;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.1;
+  text-align: center;
+  box-shadow:
+    6px 8px 16px rgba(230, 106, 78, 0.45),
+    inset 2px 2px 4px rgba(255, 220, 200, 0.6),
+    inset -2px -2px 5px rgba(180, 60, 40, 0.4);
+  animation: badge-pop 0.7s cubic-bezier(.3,1.8,.5,1) both;
+  animation-delay: 0.3s;
+}
+.star-3d .badge-pop small { font-size: 9px; font-weight: 600; opacity: 0.85; letter-spacing: 0.04em; }
+@keyframes badge-pop {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .star-3d .badge-pop { animation: none; } }
+
+.result-title {
+  position: relative; z-index: 1;
+  font-size: 24px; font-weight: 800;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.result-sub {
+  position: relative; z-index: 1;
+  font-size: 14px; line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 12px 18px;
+  text-wrap: pretty;
+}
+
+.result-card {
+  position: relative; z-index: 1;
+  background: linear-gradient(180deg, #FFFDF6 0%, #FFF1DC 100%);
+  border-radius: var(--radius-card);
+  padding: 18px 18px 16px;
+  box-shadow: var(--clay-shadow);
+  margin-bottom: 14px;
+}
+.result-card h3 {
+  font-size: 13px; font-weight: 800;
+  color: var(--coral-deep);
+  letter-spacing: 0.06em;
+  margin: 0 0 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.result-card h3 .dotline {
+  flex: 1; height: 2px;
+  background: repeating-linear-gradient(90deg, #FFC993 0 4px, transparent 4px 8px);
+  border-radius: 2px;
+}
+
+.result-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #FFE9B8 0%, #FFCE72 100%);
+  color: #5A3A00;
+  box-shadow: var(--clay-shadow-sm);
+  margin-bottom: 14px;
+  position: relative; z-index: 1;
+}
+.result-progress .label { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; opacity: 0.85; }
+.result-progress .big { display: flex; align-items: baseline; gap: 2px; font-weight: 800; }
+.result-progress .big .n { font-size: 36px; line-height: 1; }
+.result-progress .big .d { font-size: 16px; opacity: 0.7; }
+
+.result-principle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--p-bg, linear-gradient(180deg, #FFF6E2 0%, #FFE8B5 100%));
+  box-shadow: var(--clay-shadow-sm);
+  margin-bottom: 8px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.result-principle:last-child { margin-bottom: 0; }
+.result-principle .num-chip {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 10px;
+  background: var(--chip-bg, linear-gradient(180deg, #FFE7A8 0%, #FFC972 100%));
+  color: #6E4A0E;
+  font-weight: 800;
+  font-size: 13px;
+  display: grid; place-items: center;
+  box-shadow:
+    2px 3px 5px rgba(196, 132, 92, 0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.8),
+    inset -1px -1px 2px rgba(180, 110, 30, 0.3);
+}
+
+.result-experience {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 4px 2px;
+}
+
+.line-card {
+  position: relative; z-index: 1;
+  background: linear-gradient(180deg, #EFE6FB 0%, #D9CAF1 100%);
+  border-radius: var(--radius-card);
+  padding: 16px 18px;
+  box-shadow: var(--clay-shadow);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.line-card .ico-line {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #B3A0E0 0%, #8870C8 100%);
+  color: white;
+  display: grid; place-items: center;
+  box-shadow:
+    3px 4px 8px rgba(100, 70, 160, 0.4),
+    inset 1px 2px 3px rgba(255,255,255,0.4),
+    inset -1px -1px 3px rgba(60, 40, 100, 0.3);
+}
+.line-card .ico-line svg { width: 26px; height: 26px; }
+.line-card .text { flex: 1; font-size: 13.5px; font-weight: 700; color: #3D2C68; line-height: 1.5; }
+.line-card .text small { display: block; font-weight: 500; color: #6F5BA0; font-size: 12px; margin-top: 3px; }
+
+.completion-banner {
+  position: relative; z-index: 1;
+  margin-top: 8px;
+  padding: 16px;
+  text-align: center;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #FFE8A8 0%, #FFB94B 100%);
+  color: #5A3A00;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: var(--clay-shadow);
+}
+.completion-banner small { display: block; font-size: 12px; font-weight: 600; opacity: 0.8; margin-top: 4px; }
+
+/* =========================================================
+   Confetti / star drop
+   ========================================================= */
+.confetti-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+.confetti-layer .star,
+.confetti-layer .dot {
+  position: absolute;
+  top: -20px;
+  will-change: transform, opacity;
+  animation: fall linear forwards;
+}
+.confetti-layer .star { color: #FFB94B; }
+@keyframes fall {
+  0%   { transform: translate3d(0,-30px,0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate3d(var(--dx,0), 110vh, 0) rotate(var(--rot, 360deg)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .confetti-layer { display: none; } }
+
+/* =========================================================
+   Utilities
+   ========================================================= */
+.fade-in { animation: fadeIn 0.45s ease-out both; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }
+
+.tap-area { -webkit-user-select: none; user-select: none; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script type="text/babel">
+/* global React */
+const { useState, useEffect, useMemo, useRef } = React;
+
+/* =========================================================
+   常數
+   ========================================================= */
+const PRINCIPLES = [
+  "不批評、不責備、不抱怨",
+  "給予真誠的讚賞與感謝",
+  "引發他人心中的渴望",
+  "真誠地關心他人",
+  "經常微笑",
+  "姓名對任何人而言，都是最悅耳的語音",
+  "聆聽，鼓勵別人多談他自己的事",
+  "談論他人感興趣的話題",
+  "衷心讓他人覺得他很重要",
+];
+const MAX_ENTRIES = 14;
+const MAX_CHARS = 300;
+const STORAGE_KEY = "carnegie14_entries_v1";
+
+/* =========================================================
+   localStorage helpers (容錯)
+   ========================================================= */
+function storageAvailable() {
+  try {
+    const k = "__t" + Math.random();
+    localStorage.setItem(k, "1");
+    localStorage.removeItem(k);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function loadEntries() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(
+        (e) =>
+          e &&
+          typeof e === "object" &&
+          Array.isArray(e.selectedPrinciples) &&
+          typeof e.experience === "string"
+      )
+      .slice(0, MAX_ENTRIES);
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveEntries(entries) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/* =========================================================
+   小元件
+   ========================================================= */
+function ChallengeBadge() {
+  return (
+    <div className="badge-challenge">
+      <span className="dot" />
+      14 天挑戰 · DAY BY DAY
+    </div>
+  );
+}
+
+function ProgressRing({ value, max }) {
+  const radius = 28;
+  const circ = 2 * Math.PI * radius;
+  const offset = circ * (1 - Math.min(value, max) / max);
+  return (
+    <div className="progress-ring">
+      <svg viewBox="0 0 72 72">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#FFA88A" />
+            <stop offset="100%" stopColor="#E66A4E" />
+          </linearGradient>
+        </defs>
+        <circle className="ring-bg" cx="36" cy="36" r={radius} strokeWidth="8" fill="none" />
+        <circle
+          className="ring-fg"
+          cx="36" cy="36" r={radius}
+          strokeWidth="8" fill="none"
+          strokeDasharray={circ}
+          strokeDashoffset={offset}
+        />
+      </svg>
+      <div className="num">
+        <div>
+          <span>{value}</span>
+          <small>&nbsp;/{max}</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgressCard({ count }) {
+  const remain = MAX_ENTRIES - count;
+  let headline = `已累積 ${count}/${MAX_ENTRIES} 天`;
+  let encourage = "每一次練習，都會讓關係更靠近一些。";
+  if (count === 0) encourage = "從第一條原則開始，踏出溫暖的第一步。";
+  else if (count === MAX_ENTRIES) {
+    encourage = "14 天挑戰已完成！記得截圖領星星 ⭐";
+    headline = "14/14 挑戰完成 🎉";
+  } else if (remain <= 3) encourage = `剩下 ${remain} 天就能完成挑戰，繼續加油！`;
+
+  return (
+    <div className="progress-card">
+      <ProgressRing value={count} max={MAX_ENTRIES} />
+      <div className="progress-info">
+        <div className="progress-label">累積進度</div>
+        <div className="progress-headline">{headline}</div>
+        <div className="progress-encourage">{encourage}</div>
+      </div>
+    </div>
+  );
+}
+
+function PrincipleCard({ index, label, selected, onToggle, disabled }) {
+  const colorIdx = (index % 9) + 1;
+  return (
+    <button
+      type="button"
+      className={`principle ${selected ? "selected" : ""} tap-area`}
+      data-c={colorIdx}
+      onClick={() => !disabled && onToggle(index)}
+      aria-pressed={selected}
+      disabled={disabled}
+    >
+      <span className="num-chip">{index + 1}</span>
+      <span className="text">{label}</span>
+      <span className="checkbox">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 12.5l4.5 4.5L19 7"
+            stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    </button>
+  );
+}
+
+function Alert({ children }) {
+  return (
+    <div className="alert" role="alert">
+      <span className="ico">!</span>
+      <span>{children}</span>
+    </div>
+  );
+}
+
+function ClearZone({ onClear }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="clear-zone">
+      {!open && (
+        <button className="clear-link" onClick={() => setOpen(true)}>
+          清除本機所有打卡紀錄
+        </button>
+      )}
+      {open && (
+        <div className="confirm-card fade-in">
+          <p>
+            確定要清除這支手機上的所有打卡紀錄嗎？<br />
+            清除後將回到 0/14，且無法復原。
+          </p>
+          <div className="confirm-actions">
+            <button className="cancel" onClick={() => setOpen(false)}>取消</button>
+            <button
+              className="ok"
+              onClick={() => {
+                onClear();
+                setOpen(false);
+              }}
+            >
+              確定清除
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* =========================================================
+   手動補上累積次數 (換手機 / 清資料情境)
+   ========================================================= */
+function SyncCard({ currentCount, onApply }) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(currentCount);
+
+  useEffect(() => {
+    if (open) setValue(currentCount);
+  }, [open, currentCount]);
+
+  const dec = () => setValue((v) => Math.max(0, v - 1));
+  const inc = () => setValue((v) => Math.min(MAX_ENTRIES, v + 1));
+
+  if (!open) {
+    return (
+      <div className="sync-entry">
+        <button className="sync-link" onClick={() => setOpen(true)}>
+          <span className="sync-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+              <path d="M4 12a8 8 0 0114-5.3L20 4v6h-6l2.3-2.3A6 6 0 006 12H4zm16 0a8 8 0 01-14 5.3L4 20v-6h6l-2.3 2.3A6 6 0 0018 12h2z" fill="currentColor" />
+            </svg>
+          </span>
+          累計次數消失了別擔心，這邊可以手動補上
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="sync-card fade-in">
+      <div className="sync-head">
+        <span className="sync-tag">手動補上累積</span>
+        <button className="sync-close" onClick={() => setOpen(false)} aria-label="關閉">×</button>
+      </div>
+      <p className="sync-desc">
+        如果你換了手機、清過資料，或之前已經在 Line 群回報過幾天，可以在這裡手動把累積次數補上。
+      </p>
+      <div className="stepper">
+        <button className="step-btn" onClick={dec} disabled={value <= 0} aria-label="減少">−</button>
+        <div className="step-display">
+          <div className="step-num">{value}</div>
+          <div className="step-unit">/ {MAX_ENTRIES} 天</div>
+        </div>
+        <button className="step-btn" onClick={inc} disabled={value >= MAX_ENTRIES} aria-label="增加">+</button>
+      </div>
+      <p className="sync-note">
+        補上的次數只會更新進度，不會自動生成原則內容。下次打卡會接著往上累加。
+      </p>
+      <div className="confirm-actions">
+        <button className="cancel" onClick={() => setOpen(false)}>取消</button>
+        <button
+          className="ok"
+          onClick={() => {
+            onApply(value);
+            setOpen(false);
+          }}
+        >
+          確定補上 {value} 天
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   填寫頁
+   ========================================================= */
+function FormPage({ entries, onSubmit, onClear, onManualSet, storageOk }) {
+  const [selected, setSelected] = useState(new Set());
+  const [text, setText] = useState("");
+  const [error, setError] = useState(null);
+  const textareaRef = useRef(null);
+
+  const count = entries.length;
+  const isComplete = count >= MAX_ENTRIES;
+  const charCount = text.length;
+  const over = charCount > MAX_CHARS;
+
+  const toggle = (idx) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+    setError(null);
+  };
+
+  const handleSubmit = () => {
+    if (isComplete) {
+      setError("14 天打卡已完成，請截圖成果到 Line 群領取星星獎勵");
+      return;
+    }
+    if (selected.size === 0) {
+      setError("請至少選擇一條今天運用的原則");
+      return;
+    }
+    if (text.trim().length === 0) {
+      setError("請寫下今天運用的經過");
+      return;
+    }
+    if (charCount > MAX_CHARS) {
+      setError("經過內容請控制在 300 字以內");
+      return;
+    }
+    const entry = {
+      id: `e_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      createdAt: new Date().toISOString(),
+      entryNumber: count + 1,
+      selectedPrinciples: Array.from(selected).sort((a, b) => a - b),
+      experience: text.trim(),
+    };
+    onSubmit(entry);
+    setSelected(new Set());
+    setText("");
+    setError(null);
+  };
+
+  const canSubmit = !isComplete && selected.size > 0 && text.trim().length > 0 && !over;
+
+  return (
+    <div className="app-shell">
+      <ChallengeBadge />
+      <h1 className="page-title">卡內基人際關係<br />1~9 條原則打卡</h1>
+      <p className="subtitle">
+        勾選今天運用到的原則，寫下你做了什麼。<br />
+        一次練一點，關係就會慢慢靠近。
+      </p>
+
+      {!storageOk && (
+        <div className="warning-card">
+          <span className="ico">!</span>
+          <span>
+            目前瀏覽器無法保存進度，建議使用一般瀏覽模式，或固定使用同一支手機的瀏覽器，以確保 14 天紀錄不會遺失。
+          </span>
+        </div>
+      )}
+
+      <ProgressCard count={count} />
+
+      <SyncCard currentCount={count} onApply={onManualSet} />
+
+      <div className="section-label">
+        <span className="lbl">本次運用的人際原則</span>
+        <span className="hint">可複選 · 共 9 條</span>
+      </div>
+
+      <div className="principles">
+        {PRINCIPLES.map((p, i) => (
+          <PrincipleCard
+            key={i}
+            index={i}
+            label={p}
+            selected={selected.has(i)}
+            onToggle={toggle}
+            disabled={isComplete}
+          />
+        ))}
+      </div>
+
+      <div className="section-label">
+        <span className="lbl">我的運用經過</span>
+        <span className="hint">最多 300 字</span>
+      </div>
+
+      <div className="textarea-wrap">
+        <textarea
+          ref={textareaRef}
+          placeholder={
+            isComplete
+              ? "14 天挑戰已完成，無需再新增。"
+              : "例如：今天同事 A 報告時，我認真聆聽，沒有打斷，並感謝他的整理⋯⋯"
+          }
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+            setError(null);
+          }}
+          disabled={isComplete}
+          maxLength={MAX_CHARS + 50}
+        />
+        <div className="textarea-meta">
+          <span>誠實寫下，只給自己看</span>
+          <span className={`count ${over ? "over" : ""}`}>
+            {charCount}/{MAX_CHARS}
+          </span>
+        </div>
+      </div>
+
+      {error && <Alert>{error}</Alert>}
+
+      <button
+        className="btn-submit"
+        onClick={handleSubmit}
+        disabled={!canSubmit}
+      >
+        {isComplete ? "已完成 14 天挑戰" : "送出今日打卡"}
+        {!isComplete && (
+          <span className="arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        )}
+      </button>
+
+      <ClearZone onClear={onClear} />
+    </div>
+  );
+}
+
+/* =========================================================
+   星星灑落動畫
+   ========================================================= */
+function Confetti({ count = 22 }) {
+  const items = useMemo(() => {
+    return Array.from({ length: count }).map((_, i) => {
+      const isStar = i % 2 === 0;
+      const left = Math.random() * 100;
+      const dx = (Math.random() - 0.5) * 60;
+      const rot = (Math.random() - 0.5) * 720;
+      const dur = 3.5 + Math.random() * 2.5;
+      const delay = Math.random() * 1.2;
+      const size = 12 + Math.random() * 12;
+      const colors = ["#FFB94B", "#FF8E72", "#6FC890", "#6FA8DC", "#B3A0E0"];
+      const color = colors[i % colors.length];
+      return { isStar, left, dx, rot, dur, delay, size, color, i };
+    });
+  }, [count]);
+
+  return (
+    <div className="confetti-layer" aria-hidden="true">
+      {items.map((it) =>
+        it.isStar ? (
+          <svg
+            key={it.i}
+            className="star"
+            width={it.size}
+            height={it.size}
+            viewBox="0 0 24 24"
+            style={{
+              left: `${it.left}%`,
+              animationDuration: `${it.dur}s`,
+              animationDelay: `${it.delay}s`,
+              "--dx": `${it.dx}px`,
+              "--rot": `${it.rot}deg`,
+              color: it.color,
+            }}
+          >
+            <path
+              fill="currentColor"
+              d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.8 5.8 21.1l1.6-7L2 9.3l7.1-.7L12 2z"
+            />
+          </svg>
+        ) : (
+          <span
+            key={it.i}
+            className="dot"
+            style={{
+              left: `${it.left}%`,
+              width: `${it.size * 0.5}px`,
+              height: `${it.size * 0.5}px`,
+              borderRadius: "50%",
+              background: it.color,
+              animationDuration: `${it.dur}s`,
+              animationDelay: `${it.delay}s`,
+              "--dx": `${it.dx}px`,
+              "--rot": `${it.rot}deg`,
+            }}
+          />
+        )
+      )}
+    </div>
+  );
+}
+
+/* =========================================================
+   3D 大星星
+   ========================================================= */
+function BigStar({ count }) {
+  return (
+    <div className="star-3d" aria-hidden="true">
+      <svg viewBox="0 0 200 200" width="156" height="156">
+        <defs>
+          <radialGradient id="starFill" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stopColor="#FFF6C8" />
+            <stop offset="40%" stopColor="#FFD46A" />
+            <stop offset="100%" stopColor="#E89318" />
+          </radialGradient>
+          <radialGradient id="starHi" cx="30%" cy="25%" r="35%">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.95)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          </radialGradient>
+          <filter id="starShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="6" dy="10" stdDeviation="8" floodColor="#C4844D" floodOpacity="0.45" />
+          </filter>
+        </defs>
+        <g filter="url(#starShadow)">
+          <path
+            d="M100 14 L124 76 L190 82 L138 124 L156 188 L100 152 L44 188 L62 124 L10 82 L76 76 Z"
+            fill="url(#starFill)"
+            stroke="#B96E0A"
+            strokeWidth="3"
+            strokeOpacity="0.25"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M100 14 L124 76 L190 82 L138 124 L156 188 L100 152 L44 188 L62 124 L10 82 L76 76 Z"
+            fill="url(#starHi)"
+          />
+        </g>
+      </svg>
+      <div className="badge-pop">
+        <div>
+          <div style={{ fontSize: 18 }}>{count}/{MAX_ENTRIES}</div>
+          <small>完成</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   成果頁
+   ========================================================= */
+function ResultPage({ entries, onContinue }) {
+  const latest = entries[entries.length - 1];
+  const count = entries.length;
+  const isComplete = count >= MAX_ENTRIES;
+
+  if (!latest) return null;
+
+  return (
+    <div className="app-shell result-shell">
+      <div className="result-glow" />
+      <Confetti count={22} />
+
+      <div className="result-hero">
+        <ChallengeBadge />
+        <BigStar count={count} />
+        <h1 className="result-title">
+          {isComplete ? "14 天挑戰完成 🎉" : "恭喜完成今日人際原則打卡"}
+        </h1>
+        <p className="result-sub">
+          {isComplete
+            ? "你把原則一步一步變成行動，請截圖到 Line 群領取星星獎勵。"
+            : <>每一次練習，都是讓關係更靠近的一步。<br />請截圖上傳 Line 群，領取今天的星星獎勵。</>}
+        </p>
+      </div>
+
+      <div className="result-progress">
+        <div className="label">累積進度</div>
+        <div className="big">
+          <span className="n">{count}</span>
+          <span className="d">/{MAX_ENTRIES} 天</span>
+        </div>
+      </div>
+
+      <div className="result-card">
+        <h3>本次運用的原則<span className="dotline" /></h3>
+        <div>
+          {latest.selectedPrinciples.map((idx) => {
+            const colorIdx = (idx % 9) + 1;
+            return (
+              <div key={idx} className="result-principle" data-c={colorIdx}>
+                <span className="num-chip">{idx + 1}</span>
+                <span>{PRINCIPLES[idx]}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="result-card">
+        <h3>我的運用經過<span className="dotline" /></h3>
+        <p className="result-experience">{latest.experience}</p>
+      </div>
+
+      <div className="line-card">
+        <div className="ico-line" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 4h14a2 2 0 012 2v9a2 2 0 01-2 2h-7l-5 4v-4H5a2 2 0 01-2-2V6a2 2 0 012-2z" fill="white" />
+            <circle cx="9" cy="10" r="1.2" fill="#8870C8" />
+            <circle cx="13" cy="10" r="1.2" fill="#8870C8" />
+            <circle cx="17" cy="10" r="1.2" fill="#8870C8" />
+          </svg>
+        </div>
+        <div className="text">
+          請截圖這頁上傳 Line 群
+          <small>群組看到你的截圖後，會發送今日的星星獎勵 ⭐</small>
+        </div>
+      </div>
+
+      {isComplete ? (
+        <div className="completion-banner">
+          ✨ 14 天人際關係挑戰全數完成 ✨
+          <small>謝謝你願意持續練習，這份溫柔會回到你身上。</small>
+        </div>
+      ) : (
+        <button className="btn-submit" onClick={onContinue}>
+          繼續下一筆打卡
+          <span className="arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </button>
+      )}
+
+      {!isComplete && (
+        <p style={{ textAlign: "center", fontSize: 12, color: "#B5A89F", marginTop: 18 }}>
+          截圖完成後，再回來繼續累積你的 14 天 💛
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* =========================================================
+   App
+   ========================================================= */
+function App() {
+  const [storageOk] = useState(() => storageAvailable());
+  const [entries, setEntries] = useState(() => (storageAvailable() ? loadEntries() : []));
+  const [view, setView] = useState("form");
+
+  useEffect(() => {
+    if (storageOk) saveEntries(entries);
+  }, [entries, storageOk]);
+
+  const handleSubmit = (entry) => {
+    setEntries((prev) => {
+      if (prev.length >= MAX_ENTRIES) return prev;
+      return [...prev, entry];
+    });
+    setView("result");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleClear = () => {
+    setEntries([]);
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    setView("form");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleManualSet = (n) => {
+    if (n === entries.length) return;
+    const placeholders = Array.from({ length: n }).map((_, i) => ({
+      id: `m_${Date.now()}_${i}`,
+      createdAt: new Date().toISOString(),
+      entryNumber: i + 1,
+      selectedPrinciples: [],
+      experience: "",
+      manual: true,
+    }));
+    setEntries(placeholders);
+  };
+
+  const handleContinue = () => {
+    setView("form");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return view === "result" ? (
+    <ResultPage entries={entries} onContinue={handleContinue} />
+  ) : (
+    <FormPage
+      entries={entries}
+      onSubmit={handleSubmit}
+      onClear={handleClear}
+      onManualSet={handleManualSet}
+      storageOk={storageOk}
+    />
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+  </script>
+</body>
+</html>
