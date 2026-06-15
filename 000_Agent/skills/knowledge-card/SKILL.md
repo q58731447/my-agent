@@ -1,9 +1,54 @@
 ---
 name: knowledge-card
-description: 知識卡片建立 SOP — 收到書籍段落、逐字稿、文章內容後，先詢問來源、作者、主旨，再濃縮為 Threads 貼文並存入 Heptabase。當使用者提供書籍內容、逐字稿、心得文字，或說「書籍模式」「心得模式」「知識卡片」「幫我處理這段」時，務必使用此 skill。
+description: 知識卡片建立 SOP — 收到書籍段落、逐字稿、文章內容後，先詢問來源、作者、主旨，再濃縮為 Threads 貼文並存入 Heptabase。支援給日期時自動從 Heptabase Journal 抓取書籍段落建立卡片。當使用者提供書籍內容、逐字稿、心得文字，或說「書籍模式」「心得模式」「知識卡片」「幫我處理這段」「書籍資料」時，或給出日期時，務必使用此 skill。
 ---
 
 # 知識卡片建立 SOP
+
+---
+
+## 步驟零：判斷來源
+
+### 情況 A：使用者給出日期（或說「抓 Journal」）
+
+1. 呼叫 `get_journal_range`，startDate 與 endDate 皆設為該日期（格式 YYYY-MM-DD）。
+
+2. 掃描 Journal 內容，找出所有書籍段落區塊。識別規則：
+   - **格式 A（Readmoo）**：一段文字後緊接 `——《書名》` 與 `Readmoo讀墨電子書` → 該段文字為一張卡的原文，書名自動識別
+   - **格式 B（段落結束）**：一段文字後接 `段落結束` → 該段文字為一張卡的原文，書名需另行詢問
+
+3. 統計找到幾個段落、幾本書，告知使用者：
+   ```
+   找到 N 個書籍段落：
+   ・《書名A》× N 段
+   ・《書名B》× N 段
+   ・（書名未知）× N 段
+   ```
+
+4. 逐本詢問作者（同書名只問一次）：
+   ```
+   《書名A》的作者是？
+   ```
+
+5. AI 自動為每個段落產出建議主旨（一句話，精準描述該段核心），一次列出供確認：
+   ```
+   請確認各段主旨（可直接說「OK」全部採用，或說「修改第N段：新主旨」）：
+   
+   第1段《書名A》：[建議主旨]
+   第2段《書名A》：[建議主旨]
+   第3段《書名B》：[建議主旨]
+   ...
+   ```
+
+6. 使用者確認後，依序對每個段落執行**步驟二 → 步驟三**。
+
+---
+
+### 情況 B：使用者直接貼入內容
+
+直接進入**步驟一**，不詢問、不確認。
+
+---
 
 ## 步驟一：詢問卡片資訊
 
@@ -40,132 +85,3 @@ description: 知識卡片建立 SOP — 收到書籍段落、逐字稿、文章�
 2. 步驟二產出的 Threads 貼文
 
 存入後告知使用者：「已存入 Heptabase，卡片標題：[RAW][來源][作者][主旨]」
-
----
-
-## 步驟四：產出 HTML 視覺報告
-
-根據步驟一～三的資料，用 Write 工具存檔至：
-
-```
-C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\knowledge-card-YYYYMMDD.html
-```
-
-（YYYYMMDD 替換為當日日期）
-
-### HTML 模板
-
-將所有 `{{變數}}` 替換為實際資料後存檔：
-
-```html
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<style>
-  body {
-    font-family: "Noto Sans TC", sans-serif;
-    background: #0f0f0f;
-    color: #e0e0e0;
-    padding: 24px;
-    max-width: 640px;
-    margin: auto;
-  }
-  .header { text-align: center; margin-bottom: 24px; }
-  .header .label { font-size: 0.72rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-  .header h1 { font-size: 1.3rem; color: #f5c842; margin: 0 0 6px; line-height: 1.4; }
-  .header .meta { font-size: 0.8rem; color: #888; }
-  .header .meta span { color: #aaa; }
-
-  .card { background: #1a1a1a; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
-  .card-title { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-
-  /* 原文區塊 */
-  .raw-text {
-    font-size: 0.85rem;
-    line-height: 1.9;
-    color: #ccc;
-    border-left: 3px solid #333;
-    padding-left: 14px;
-    white-space: pre-wrap;
-  }
-
-  /* 主旨標籤 */
-  .subject-tag {
-    display: inline-block;
-    background: #2a2200;
-    border: 1px solid #f5c842;
-    color: #f5c842;
-    border-radius: 20px;
-    padding: 4px 16px;
-    font-size: 0.82rem;
-    margin-bottom: 14px;
-  }
-
-  /* Threads 預覽 */
-  .threads-preview {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 0.85rem;
-    line-height: 1.9;
-    white-space: pre-wrap;
-    color: #ddd;
-  }
-  .threads-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-  .threads-avatar {
-    width: 30px; height: 30px;
-    background: #f5c842;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem; font-weight: bold; color: #000;
-    flex-shrink: 0;
-  }
-  .threads-name { font-size: 0.78rem; color: #aaa; }
-</style>
-</head>
-<body>
-
-<div class="header">
-  <div class="label">📚 知識卡片</div>
-  <h1>{{主旨}}</h1>
-  <div class="meta">來源：<span>{{來源}}</span>　作者：<span>{{作者}}</span></div>
-</div>
-
-<div class="card">
-  <div class="card-title">原文摘錄</div>
-  <div class="subject-tag">{{主旨}}</div>
-  <div class="raw-text">{{原文內容}}</div>
-</div>
-
-<div class="card">
-  <div class="card-title">Threads 貼文預覽</div>
-  <div class="threads-header">
-    <div class="threads-avatar">J</div>
-    <div class="threads-name">@thisisj587</div>
-  </div>
-  <div class="threads-preview">{{Threads貼文內容}}</div>
-</div>
-
-</body>
-</html>
-```
-
-### 變數說明
-
-| 變數 | 填入規則 |
-|------|---------|
-| `{{主旨}}` | 步驟一填寫的主旨 |
-| `{{來源}}` | 步驟一填寫的來源 |
-| `{{作者}}` | 步驟一填寫的作者 |
-| `{{原文內容}}` | 使用者提供的原始內容（完整保留，超過 300 字截取前 300 字並加「……」） |
-| `{{Threads貼文內容}}` | 步驟二產出的貼文全文 |
-
-存檔完成後告知使用者：
-
-```
-📄 HTML 報告已產出：knowledge-card-YYYYMMDD.html
-路徑：C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\
-用瀏覽器開啟後，按 F12 → Ctrl+Shift+P → 輸入 screenshot → 選「Capture full size screenshot」即可存成圖片。
-```
