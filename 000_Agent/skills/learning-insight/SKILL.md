@@ -1,9 +1,21 @@
 ---
 name: learning-insight
-description: 學習心得內容編輯 SOP — 收到使用者的學習心得文字後，依序產出金句 10 則、關鍵字 10 個、轉單文案 10 句、Threads 貼文（250 字去 AI 化版本）。當使用者說「學習心得」「心得模式」「/learning-insight」，或貼入含有「【我的心得】」字樣的內容時，務必使用此 skill。
+description: 學習心得內容編輯 SOP — 收到使用者的學習心得文字後，依序產出金句 10 則、關鍵字 10 個、轉單文案 10 句、Threads 貼文（250 字去 AI 化版本）。每次存入 Heptabase 後，自動 append 本週索引。支援「上傳YYYYMMDD週資料」指令上傳本週學習心得索引。當使用者說「學習心得」「心得模式」「/learning-insight」，或貼入含有「【我的心得】」字樣的內容，或說「上傳YYYYMMDD週資料」時，務必使用此 skill。
 ---
 
 # 學習心得內容編輯 SOP
+
+## 步驟零：判斷觸發類型
+
+### 情況 A：使用者說「上傳YYYYMMDD週資料」
+
+→ 進入文末的「**週索引上傳流程**」，不走步驟一～五。
+
+### 情況 B：使用者提供心得文字
+
+直接進入步驟一。
+
+---
 
 ## 步驟一：接收心得內容
 
@@ -160,6 +172,39 @@ description: 學習心得內容編輯 SOP — 收到使用者的學習心得文�
 
 ---
 
+## 步驟四A：更新本機週索引
+
+> ⚠️ **每張卡存入 Heptabase 後，立即執行此步驟。**
+
+### 計算本週區間
+
+給定今日日期，計算本週週一到週日（ISO 週，週一為起點）。
+
+### 讀取或建立週索引檔
+
+路徑：`C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\learning-insights\week-YYYYMMDD-YYYYMMDD.md`
+
+- 若檔案已存在：讀取現有內容，在表格末尾 append 新的一筆
+- 若檔案不存在：建立新檔，寫入標題與表格標題列
+
+### 週索引檔格式
+
+```markdown
+# 學習心得週索引 YYYY.MM.DD～YYYY.MM.DD
+
+| 日期 | 類型 | 來源 | 主旨 |
+|------|------|------|------|
+| YYYY-MM-DD | C（觀念） | 《書名》 | 主旨內容 |
+| YYYY-MM-DD | M（方法） | 課程名 | 主旨內容 |
+```
+
+- **日期**：今日日期（YYYY-MM-DD）
+- **類型**：觀念 → `C（觀念）`；方法 → `M（方法）`
+- **來源**：步驟三填寫的來源名稱
+- **主旨**：步驟三填寫的主旨
+
+---
+
 ## 步驟五：產出 HTML 視覺報告
 
 根據步驟二的四個任務輸出，用 Write 工具存檔至：
@@ -306,3 +351,45 @@ C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\html-demo\learning-insight-YYYYMM
 用瀏覽器開啟後，按 F12 → Ctrl+Shift+P → 輸入 screenshot → 選「Capture full size screenshot」即可存成圖片。
 ```
 
+---
+
+## 週索引上傳流程（獨立指令）
+
+**觸發條件**：使用者在 learning-insight skill 內說「上傳YYYYMMDD週資料」
+
+### 1. 計算週區間
+
+給定日期 D：
+- 若 D 是**週一**：週區間 = (D − 7 天) 至 (D − 1 天)，即前一週的週一到週日
+- 若 D **不是週一**：週區間 = D 所在週的週一 至 D 所在週的週日
+
+範例：「上傳20260616週資料」→ 20260616 是週一 → 週區間 = 20260609～20260615
+
+### 2. 讀取本機週索引檔
+
+路徑：`C:\Users\Jeff Chen\iCloudDrive\Claude\my-agent\learning-insights\week-YYYYMMDD-YYYYMMDD.md`
+
+- 有檔案：讀取完整內容
+- 無檔案：告知「該週無學習心得紀錄」，停止流程
+
+### 3. 確認後上傳
+
+顯示確認訊息：
+```
+即將上傳 YYYYMMDD～YYYYMMDD 的學習心得週索引：
+共 N 筆卡片記錄
+確認上傳嗎？（回覆「確認」即上傳）
+```
+
+使用者確認後，呼叫 `save_to_note_card`：
+- **卡片標題**：`[YYYYMMDD-YYYYMMDD][學習心得週索引]`
+- **卡片內容**：週索引檔的完整內容
+
+完成後告知：
+```
+✅ 學習心得週索引已上傳！
+卡片標題：[YYYYMMDD-YYYYMMDD][學習心得週索引]
+本週收錄：N 筆
+
+⚠️ 提醒：請到 Heptabase 主空間，將此卡片手動移入對應白板。若已有舊版週索引卡，請手動刪除。
+```
